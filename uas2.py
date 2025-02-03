@@ -9,14 +9,14 @@ front_image = cv2.imread("front_view.jpg")
 back_image = cv2.imread("back_view.jpg")
 
 if front_image is None or back_image is None:
-    raise ValueError("Error loading images. Check file paths.")
+    raise ValueError("UPLOAD THE IMAGE ")
 
 
-front_results = model(front_image, conf=0.6, iou=0.7)
-back_results = model(back_image, conf=0.6, iou=0.7)
+front_results = model(front_image)
+back_results = model(back_image)
 
 
-def get_fruit_detections(results):
+def GETFRUITS(results):
     fruits = []
     for result in results:
         boxes = result.boxes  
@@ -29,11 +29,11 @@ def get_fruit_detections(results):
 
 
 
-front_fruits = get_fruit_detections(front_results)
-back_fruits = get_fruit_detections(back_results)
+front_fruits = GETFRUITS(front_results)
+back_fruits = GETFRUITS(back_results)
 
 
-def calculate_iou(box1, box2):
+def iou_(box1, box2):
     x1A, y1A, x2A, y2A = box1
     x1B, y1B, x2B, y2B = box2
 
@@ -66,8 +66,8 @@ for back_fruit in back_fruits:
         class_f = front_fruit[1]
 
         if class_b == class_f: 
-            iou = calculate_iou((x1_f, y1_f, x2_f, y2_f), (x1_b, y1_b, x2_b, y2_b))
-            if iou > iou_threshold:
+            iou = iou_((x1_f, y1_f, x2_f, y2_f), (x1_b, y1_b, x2_b, y2_b))
+            if iou > iou_:
                 is_duplicate = True
                 break
 
@@ -76,7 +76,7 @@ for back_fruit in back_fruits:
 
 
 total_fruit_count = len(unique_fruits)
-print(f"Total unique fruits detected: {total_fruit_count}")
+print(f"TOTAL FRUITS : {total_fruit_count}")
 
 
 
