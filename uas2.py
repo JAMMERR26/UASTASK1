@@ -23,6 +23,8 @@ def GETFRUITS(results):
         for i in range(len(boxes)):
             x1, y1, x2, y2 = map(int, boxes.xyxy[i])  
             classid = int(boxes.cls[i].item()) 
+            if classid == 3:
+                continue
             conf = boxes.conf[i].item()  
             fruits.append(((x1, y1, x2, y2), classid, conf))
     return fruits
@@ -59,6 +61,8 @@ unique_fruits = front_fruits.copy()
 for back_fruit in back_fruits:
     x1_b, y1_b, x2_b, y2_b = back_fruit[0]
     class_b = back_fruit[1]
+    if class_b ==3:
+        continue
 
     is_duplicate = False
     for front_fruit in front_fruits:
